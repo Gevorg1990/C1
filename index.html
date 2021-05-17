@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+</head>
+<body>
+	<h1>AlarmClock</h1>
+
+	<input style="max-width: 50px" class="hours" type="text" maxlength="2">
+	<input style="max-width: 50px" class="minutes" type="text" maxlength="2">
+	<button class="btn-save">Save</button>
+
+
+	<button class="btn-stop">Stop</button>
+
+
+<button class="btn-saves">RemoveCookie</button>
+
+
+ <input type="file" id="file" name="file">
+
+<video id="main-video">
+   <source type="video/mp4">
+</video>
+
+<canvas id="video-canvas"></canvas>
+
+<script>
+	
+	// setInterval(function(){
+		
+	// 		var d = new Date();
+	// 		if ( d.getHours() === 14 && d.getMinutes() < 17 && d.getMinutes() > 14 ) {
+	// 			document.body.style.backgroundColor = 'red';
+	// 		} else {
+	// 			document.body.innerHTML = d;
+	// 		}
+	// 	}, 1000);
+
+// let red = $.cookie('clock','red', { expires: 7});
+
+
+
+ 
+$('body').css('background', $.cookie('bg'));
+
+document.querySelector('.btn-save').onclick=function() {
+
+	
+setInterval( function() {
+   
+  
+var d = new Date();
+var minut =document.querySelector('.minutes').value;
+var hours =document.querySelector('.hours').value;
+
+ $.cookie('minuts',minut); 
+ $.cookie('hours',hours);
+
+ 
+
+if ( d.getHours() === +hours && d.getMinutes() === +minut ) {
+
+
+$.cookie('bg','red');
+// $.cookie('hours','hours');
+// $.cookie('minuts','minuts');
+location.reload()
+
+
+
+}
+
+// location.reload()
+
+//      setTimeout(function(){
+//           document.body.style.background='white',200;
+//            document.querySelector('.btn-save').innerHTML='stop';
+
+// } else {
+// 	$.removeCookie('bg');
+// 	$.cookie('hours');
+//     $.cookie('minuts');
+
+// }
+
+//       if(document.querySelector('.btn-save').innerHTML=='stop') {
+//     document.querySelector('.btn-save').onclick=function(){
+// 	document.body.style.background="";
+// 	document.querySelector('.btn-save').innerHTML='Save'
+// 	hours+=1
+// }
+
+
+
+},1000);
+
+// setTimeout(()=>document.querySelector('.btn-save').innerHTML='Save',60000);
+
+
+}
+	
+
+  //  $('.btn-saves').click(function(){
+		//   $.removeCookie('bg');
+		//   location.reload()
+		  	
+  // });
+
+  // ----------------------------------------------------------------------
+  var _CANVAS = document.querySelector("#video-canvas");
+var _CTX = _CANVAS.getContext("2d");
+var _VIDEO = document.querySelector("#main-video");
+
+document.querySelector("#file").addEventListener('change', function() {
+
+    // Object Url as the video source
+    document.querySelector("#main-video source").setAttribute('src', URL.createObjectURL(document.querySelector("#file").files[0]));
+
+    // Load the video and show it
+    _VIDEO.load();
+ _VIDEO.setAttribute('controls',true);
+
+    // Load metadata of the video to get video duration and dimensions
+    _VIDEO.addEventListener('loadedmetadata', function() {
+        // Set canvas dimensions same as video dimensions
+        _CANVAS.width = _VIDEO.videoWidth;
+        _CANVAS.height = _VIDEO.videoHeight;
+    });
+
+    _VIDEO.addEventListener('canplay', function() {
+        _CANVAS.style.display = 'inline';
+        _CTX.drawImage(_VIDEO, 0, 0, _VIDEO.videoWidth, _VIDEO.videoHeight);
+    });
+
+});
+// -------------------------------------------------------------------------------------
+
+ </script>
+
+</body>
+</html>
